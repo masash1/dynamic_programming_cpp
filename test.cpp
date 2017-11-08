@@ -15,8 +15,8 @@ C++ version. There is an original C version in
 using namespace std;
 
 // FUNCTIONS FOR SETUP
-int numberCells(double, double *);
-void setVector(int, double, double *, vector<double> &);
+int numberCells(double, vector<double> &);
+void setVector(int, double, vector<double> &, vector<double> &);
 void setObst(vector<double> &);
 void setGoal(vector<double> &, vector<double> &, vector<double> &);
 void setInitialValue(vector<double> &, vector<double> &, vector<double> &);
@@ -44,7 +44,7 @@ int numActions = 7;
 int main(int argc, char **argv){
 	// DEFINE PARAMETERS
 	double dr, dtheta, dphi;
-	double rdim[2], thetadim[2], phidim[2];
+	vector<double> rdim(2), thetadim(2), phidim(2);
 	vector<double> rVec, thetaVec, phiVec;
 	// - minimum grid resolution for r, theta, phi
 	dr = 5.0, dtheta = 180.0, dphi = 180;
@@ -110,7 +110,7 @@ int main(int argc, char **argv){
 
 /*--------------- SETUP FUNCTIONS ----------------*/
 
-int numberCells(double d, double *dim){
+int numberCells(double d, vector<double> &dim){
 	int n = 0;
 	double diff;
 	diff = dim[1]-dim[0];
@@ -125,7 +125,7 @@ int numberCells(double d, double *dim){
 	return n;
 }
 
-void setVector(int n, double d, double *dim, vector<double> &Vec){
+void setVector(int n, double d, vector<double> &dim, vector<double> &Vec){
 	double value;
 	value = dim[0];
 
