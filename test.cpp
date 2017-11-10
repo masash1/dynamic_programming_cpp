@@ -10,7 +10,7 @@ C++ version. There is an original C version in
 #include <time.h>
 #include <string.h>
 // C++ Headers
-#include <iostream>
+//#include <iostream>
 #include <vector>
 using namespace std;
 
@@ -61,9 +61,6 @@ int main(int argc, char **argv){
 	setVector(ntheta, dtheta, thetadim, thetaVec);
 	setVector(nphi, dphi, phidim, phiVec);
 
-	for(auto e : rVec){
-		cout << e << endl;
-	}
 	// - probability of going the wrong way
 	perr = 0.0;
 	// attenuation rate
@@ -194,7 +191,7 @@ void conditionPolicy (vector<double> &isobst, vector<double> &isgoal, vector<cha
 		U[nr*ntheta*k+ntheta*i+j] = -1;
 	}
 	else{
-		char r = rand() % 7;
+		char r = rand() % numActions;
 		U[nr*ntheta*k+ntheta*i+j] = r;
 	}
 }
@@ -272,10 +269,10 @@ void conditionPhi(int i, int j, int k, vector<double> &tempCost, vector<double> 
 void computeTotalCost(vector<double> &tempCost, vector<double> &totalCost){
 	double tempCostTotal=0;
 	
-	for(int n; n<numActions; n++){
+	for(int n=0; n<numActions; n++){
 		tempCostTotal+=tempCost[n];
 	}
-	for(int n; n<numActions; n++){
+	for(int n=0; n<numActions; n++){
 		totalCost[n]=vMove+gamma1*((1-perr)*tempCost[n]+(perr/6)*(tempCostTotal-tempCost[n]));
 	}
 }
@@ -283,7 +280,7 @@ void computeTotalCost(vector<double> &tempCost, vector<double> &totalCost){
 double computeNewValue(vector<double> &totalCost){
 	double max;
 	max = totalCost[0];
-
+	
 	for(int n=0; n<numActions; n++){
 		if(totalCost[n]>max)
 			max=totalCost[n];
@@ -302,7 +299,6 @@ char computeNewPolicy(vector<double> &totalCost){
 			max=totalCost[n];
 			idx=n;
 		}
-
 	}
 
 	return idx;
