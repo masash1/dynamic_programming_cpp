@@ -2,5 +2,5 @@ language: cpp
 compiler: g++
 
 script:
-  - g++ test.c -o test -lm
+  - make
   - ./test 
