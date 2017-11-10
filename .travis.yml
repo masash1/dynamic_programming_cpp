@@ -3,4 +3,5 @@ compiler: g++
 
 script:
   - make
-  - ./test 
+  - ./test > out
+  - diff out ref 
