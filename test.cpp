@@ -62,7 +62,6 @@ int main(int argc, char **argv){
 	nr = numberCells(dr, rdim);
 	ntheta = numberCells(dtheta, thetadim);
 	nphi = numberCells(dphi, phidim);
-	printf("nr=%d ntheta=%d nphi=%d\n", nr, ntheta, nphi);
 	// - vectors for r, theta, phi
 	setVector(nr, dr, rdim, rVec);
 	setVector(ntheta, dtheta, thetadim, thetaVec);
