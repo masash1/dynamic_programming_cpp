@@ -25,7 +25,8 @@ using namespace std;
 #include "timer.h"
 #include "params.h"
 
-int main(int argc, char **argv){
+int main(int argc, char **argv)
+{
 	double iStart=cpuSecond();
 
 	// DEFINE PARAMETERS
@@ -72,23 +73,27 @@ int main(int argc, char **argv){
 	setInitialPolicy(isobst, isgoal, U);
 
 	// DO VALUE ITERATION
-	int T = 100;
 	vector<double> Jprev(nr*ntheta*nphi,0);
 	vector<char> Uprev(nr*ntheta*nphi,0);
-
-	for(int t=0; t<T; t++){
-		printf("Iteration %d\n", t+1);
+	
+	int t=1;
+	float error=1;
+	while(error!=0){
+		printf("Iteration %d\n", t);
 
 		// Iterate over all states.
 		Jprev = J;
 		Uprev = U;
 		valueIteration(isobst, isgoal, J, U, Jprev);
-/*
-		for(int x=0; x<nr*ntheta*nphi; x++){
-			printf("%2d J=%3.1f U=%2d\n", x, J[x], U[x]);
-		}
+
+		error=0;
+                for(int x=0; x<nr*ntheta*nphi; x++){
+                       // printf("%2d J=%3.1f Jprev= %3.1f U=%2d\n", x, J[x], Jprev[x],U[x]);
+                        error+=(J[x]-Jprev[x]);
+                }
+                t+=1;
 		printf("\n");
-*/
+
 	}
 	
 	double iElaps=cpuSecond()-iStart;
