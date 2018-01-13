@@ -2,8 +2,8 @@
 
 // DEFINE GLOBAL PARAMETERS
 int nr, ntheta, nphi;
-double perr;
-double gamma1;
-double vGoal, vObst, vMove;
-double vInitial;
+float perr;
+float gamma1;
+float vGoal, vObst, vMove;
+float vInitial;
 int numActions = 7;

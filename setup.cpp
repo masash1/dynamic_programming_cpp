@@ -17,9 +17,10 @@ using namespace std;
 // Own Headers
 #include "params.h"
 
-int numberCells(double d, vector<double> &dim){
+int numberCells(float d, vector<float> &dim)
+{
 	int n = 0;
-	double diff;
+	float diff;
 	diff = dim[1]-dim[0];
 
 	if(d<1 || d>diff){
@@ -32,8 +33,9 @@ int numberCells(double d, vector<double> &dim){
 	return n;
 }
 
-void setVector(int n, double d, vector<double> &dim, vector<double> &Vec){
-	double value;
+void setVector(int n, float d, vector<float> &dim, vector<float> &Vec)
+{
+	float value;
 	value = dim[0];
 
 	for(int i=0; i<n; i++){
@@ -42,7 +44,8 @@ void setVector(int n, double d, vector<double> &dim, vector<double> &Vec){
 	}
 }
 
-void setObst(vector<double> &isobst){
+void setObst(vector<float> &isobst)
+{
 	for(int j=0; j<ntheta; j++){
 		for(int k=0;k<nphi; k++){
 			isobst[nr*ntheta*k+(nr-1)*ntheta+j] = 1;
@@ -50,7 +53,8 @@ void setObst(vector<double> &isobst){
 	}
 }
 
-void setGoal(vector<double> &thetaVec, vector<double> &phiVec, vector<double> &isgoal){
+void setGoal(vector<float> &thetaVec, vector<float> &phiVec, vector<float> &isgoal)
+{
 	for(int j=0; j<ntheta; j++){
 		for(int k=0; k<nphi; k++){
 			if(thetaVec[j]==phiVec[k])
@@ -59,7 +63,8 @@ void setGoal(vector<double> &thetaVec, vector<double> &phiVec, vector<double> &i
 	}
 }
 
-void conditionValue(vector<double> &isobst, vector<double> &isgoal, vector<double> &J, int i, int j, int k){
+void conditionValue(vector<float> &isobst, vector<float> &isgoal, vector<float> &J, int i, int j, int k)
+{
 	if(isobst[nr*ntheta*k+ntheta*i+j]){
 		J[nr*ntheta*k+ntheta*i+j] = vObst;
 	}
@@ -71,7 +76,8 @@ void conditionValue(vector<double> &isobst, vector<double> &isgoal, vector<doubl
 	}
 }
 
-void setInitialValue(vector<double> &isobst, vector<double> &isgoal, vector<double> &J){
+void setInitialValue(vector<float> &isobst, vector<float> &isgoal, vector<float> &J)
+{
 	for(int i=0; i<nr; i++){
 		for(int j=0; j<ntheta; j++){
 			for(int k=0; k<nphi; k++){
@@ -81,7 +87,8 @@ void setInitialValue(vector<double> &isobst, vector<double> &isgoal, vector<doub
 	}
 }
 
-void conditionPolicy (vector<double> &isobst, vector<double> &isgoal, vector<char> &U, int i, int j, int k){
+void conditionPolicy (vector<float> &isobst, vector<float> &isgoal, vector<char> &U, int i, int j, int k)
+{
 	if(isobst[nr*ntheta*k+ntheta*i+j]){
 		U[nr*ntheta*k+ntheta*i+j] = -1;
 	}
@@ -94,7 +101,8 @@ void conditionPolicy (vector<double> &isobst, vector<double> &isgoal, vector<cha
 	}
 }
 
-void setInitialPolicy(vector<double> &isobst, vector<double> &isgoal, vector<char> &U){
+void setInitialPolicy(vector<float> &isobst, vector<float> &isgoal, vector<char> &U)
+{
 	srand((unsigned)time(NULL));
 
 	for(int i=0; i<nr; i++){

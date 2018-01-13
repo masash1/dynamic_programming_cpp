@@ -27,12 +27,12 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
-	double iStart=cpuSecond();
+double  iStart=cpuSecond();
 
 	// DEFINE PARAMETERS
-	double dr, dtheta, dphi;
-	vector<double> rdim(2), thetadim(2), phidim(2);
-	vector<double> rVec, thetaVec, phiVec;
+	float dr, dtheta, dphi;
+	vector<float> rdim(2), thetadim(2), phidim(2);
+	vector<float> rVec, thetaVec, phiVec;
 	// - minimum grid resolution for r, theta, phi
 	dr = 1.0, dtheta = 1.0, dphi = 1.0;
 	// - dimensions of the state space
@@ -62,18 +62,18 @@ int main(int argc, char **argv)
 	vInitial = 0.0;
 
 	// DEFINE OBSTACLE AND GOAL LOCATIONS
-	vector<double> isobst(nr*ntheta*nphi,0), isgoal(nr*ntheta*nphi,0);
+	vector<float> isobst(nr*ntheta*nphi,0), isgoal(nr*ntheta*nphi,0);
 	setObst(isobst);
 	setGoal(thetaVec, phiVec, isgoal);
 
 	// DEFINE INITIAL GUESS AT VALUE AND POLICY
-	vector<double> J(nr*ntheta*nphi,0);
+	vector<float> J(nr*ntheta*nphi,0);
 	vector<char> U(nr*ntheta*nphi,0);
 	setInitialValue(isobst, isgoal, J);
 	setInitialPolicy(isobst, isgoal, U);
 
 	// DO VALUE ITERATION
-	vector<double> Jprev(nr*ntheta*nphi,0);
+	vector<float> Jprev(nr*ntheta*nphi,0);
 	vector<char> Uprev(nr*ntheta*nphi,0);
 	
 	int t=1;
@@ -96,7 +96,7 @@ int main(int argc, char **argv)
 
 	}
 	
-	double iElaps=cpuSecond()-iStart;
+double iElaps=cpuSecond()-iStart;
 	printf("Time elapsed = %f ms\n", iElaps*1000.0f);
 	return(0);
 }

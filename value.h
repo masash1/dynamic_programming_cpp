@@ -1,8 +1,8 @@
 // FUNCTIONS FOR VALUE ITERATION
-void conditionPhi(int, int, int, vector<double> &, vector<double> &);
-void conditionTheta(int, int, int, vector<double> &, vector<double> &);
-void conditionR(int, int, int, vector<double> &, vector<double> &);
-void computeTotalCost(vector<double> &, vector<double> &);
-double computeNewValue(vector<double> &);
-char computeNewPolicy(vector<double> &);
-void valueIteration(vector<double> &, vector<double> &, vector<double> &, vector<char> &, vector<double> &);
+void conditionPhi(int, int, int, vector<float> &, vector<float> &);
+void conditionTheta(int, int, int, vector<float> &, vector<float> &);
+void conditionR(int, int, int, vector<float> &, vector<float> &);
+void computeTotalCost(vector<float> &, vector<float> &);
+float computeNewValue(vector<float> &);
+char computeNewPolicy(vector<float> &);
+void valueIteration(vector<float> &, vector<float> &, vector<float> &, vector<char> &, vector<float> &);

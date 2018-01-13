@@ -18,7 +18,8 @@ using namespace std;
 // Own Headers
 #include "params.h"
 
-void conditionPhi(int i, int j, int k, vector<double> &tempCost, vector<double> &Jprev){
+void conditionPhi(int i, int j, int k, vector<float> &tempCost, vector<float> &Jprev)
+{
 	if(k==0){
 		tempCost[5] = Jprev[nr*ntheta*(k+1)+ntheta*i+j];
 		tempCost[6] = Jprev[nr*ntheta*(nphi-1)+ntheta*i+j];
@@ -33,7 +34,8 @@ void conditionPhi(int i, int j, int k, vector<double> &tempCost, vector<double> 
 	}
 }
 
-void conditionTheta(int i, int j, int k, vector<double> &tempCost, vector<double> &Jprev){
+void conditionTheta(int i, int j, int k, vector<float> &tempCost, vector<float> &Jprev)
+{
 	if(j==0){
 		tempCost[3] = Jprev[nr*ntheta*k+ntheta*i+(j+1)];
 		tempCost[4] = Jprev[nr*ntheta*k+ntheta*i+(ntheta-1)];
@@ -49,7 +51,8 @@ void conditionTheta(int i, int j, int k, vector<double> &tempCost, vector<double
 	conditionPhi(i, j, k, tempCost, Jprev);
 }
 
-void conditionR(int i, int j, int k, vector<double> &tempCost, vector<double> &Jprev){
+void conditionR(int i, int j, int k, vector<float> &tempCost, vector<float> &Jprev)
+{
 	if(i==0){
 		tempCost[1] = Jprev[nr*ntheta*k+ntheta*(i+1)+j];
 		tempCost[2] = Jprev[nr*ntheta*k+ntheta*i+j];
@@ -61,8 +64,9 @@ void conditionR(int i, int j, int k, vector<double> &tempCost, vector<double> &J
 	conditionTheta(i, j, k, tempCost, Jprev);
 }
 
-void computeTotalCost(vector<double> &tempCost, vector<double> &totalCost){
-	double tempCostTotal=0;
+void computeTotalCost(vector<float> &tempCost, vector<float> &totalCost)
+{
+	float tempCostTotal=0;
 	
 	for(int n=0; n<numActions; n++){
 		tempCostTotal+=tempCost[n];
@@ -72,8 +76,9 @@ void computeTotalCost(vector<double> &tempCost, vector<double> &totalCost){
 	}
 }
 
-double computeNewValue(vector<double> &totalCost){
-	double max;
+float computeNewValue(vector<float> &totalCost)
+{
+	float max;
 	max = totalCost[0];
 	
 	for(int n=0; n<numActions; n++){
@@ -84,8 +89,9 @@ double computeNewValue(vector<double> &totalCost){
 	return max;
 }
 
-char computeNewPolicy(vector<double> &totalCost){
-	double max;
+char computeNewPolicy(vector<float> &totalCost)
+{
+	float max;
 	char idx;
 	max = totalCost[0];
 
@@ -98,9 +104,10 @@ char computeNewPolicy(vector<double> &totalCost){
 
 	return idx;
 }
-
-void valueIteration(vector<double> &isobst, vector<double> &isgoal, vector<double> &J, vector<char> &U, vector<double> &Jprev){
-	vector<double> tempCost(numActions,0), totalCost(numActions,0);
+//#pragma acc kernels
+void valueIteration(vector<float> &isobst, vector<float> &isgoal, vector<float> &J, vector<char> &U, vector<float> &Jprev)
+{
+	vector<float> tempCost(numActions,0), totalCost(numActions,0);
 
 	for(int i=0; i<nr; i++){
 		for(int j=0; j<ntheta; j++){
