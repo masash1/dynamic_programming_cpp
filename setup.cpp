@@ -23,7 +23,7 @@ int numberCells(float d, vector<float> &dim)
 	float diff;
 	diff = dim[1]-dim[0];
 
-	if(d<1 || d>diff){
+	if(d<0 || d>diff){
 		printf("value of resolution or dimension is invalid.\n");
 	}
 	else{

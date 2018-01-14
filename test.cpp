@@ -34,7 +34,7 @@ double  iStart=cpuSecond();
 	vector<float> rdim(2), thetadim(2), phidim(2);
 	vector<float> rVec, thetaVec, phiVec;
 	// - minimum grid resolution for r, theta, phi
-	dr = 1.0, dtheta = 1.0, dphi = 1.0;
+	dr = atof(argv[1]), dtheta = atof(argv[2]), dphi = atof(argv[3]);
 	// - dimensions of the state space
 	rdim[0] = 0.0, rdim[1] = 10.0;
 	thetadim[0] = 0.0, thetadim[1] = 360.0;
@@ -43,8 +43,8 @@ double  iStart=cpuSecond();
 	nr = numberCells(dr, rdim);
 	ntheta = numberCells(dtheta, thetadim);
 	nphi = numberCells(dphi, phidim);
-	printf("nr=%d ntheta=%d nphi=%d\n", nr,ntheta,nphi);
-	printf("Number of states is %d\n", nr*ntheta*nphi);
+	//printf("nr=%d ntheta=%d nphi=%d\n", nr,ntheta,nphi);
+	printf("%d,", nr*ntheta*nphi);
 	// - vectors for r, theta, phi
 	setVector(nr, dr, rdim, rVec);
 	setVector(ntheta, dtheta, thetadim, thetaVec);
@@ -79,7 +79,7 @@ double  iStart=cpuSecond();
 	int t=1;
 	float error=1;
 	while(error!=0){
-		printf("Iteration %d\n", t);
+		//printf("Iteration %d\n", t);
 
 		// Iterate over all states.
 		Jprev = J;
@@ -92,11 +92,11 @@ double  iStart=cpuSecond();
                         error+=(J[x]-Jprev[x]);
                 }
                 t+=1;
-		printf("\n");
+		//printf("\n");
 
 	}
 	
 double iElaps=cpuSecond()-iStart;
-	printf("Time elapsed = %f ms\n", iElaps*1000.0f);
+	printf("%f\n", iElaps*1000.0f);
 	return(0);
 }
